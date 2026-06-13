@@ -12,11 +12,13 @@ class RepoAnalyzer:
 
         metadata = self.github.get_repo(owner, repo)
         readme = self.github.get_readme(owner, repo)
+        requirements = self.github.get_requirement(owner, repo)
         languages = self.github.get_languages(owner, repo)
 
         return ProjectInfo(
             name = metadata['name'],
             description = metadata.get('description') or "",
             readme = readme,
-            languages =list(languages.keys())
+            languages =list(languages.keys()),
+            requirements=requirements
         )
