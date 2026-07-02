@@ -1,0 +1,75 @@
+{
+  "analysis": {
+    "project_purpose": "A deep learning system for handwritten character recognition that converts user-drawn or uploaded images into accurate digit and letter predictions. The project demonstrates end-to-end ML engineering—from dataset handling and CNN training to an interactive Gradio web interface for real-time inference.",
+    "technologies": [
+      "Python",
+      "PyTorch",
+      "OpenCV",
+      "Gradio",
+      "TensorBoard",
+      "YAML",
+      "MNIST",
+      "EMNIST"
+    ],
+    "features": [
+      "Modular CNN classifier with dedicated DataModule and Predictor classes",
+      "Interactive Gradio web interface supporting canvas drawing and image uploads",
+      "YAML-based configuration for swapping datasets and hyperparameters without code changes",
+      "Automated model checkpointing and TensorBoard integration for training visibility",
+      "CLI tool for batch testing and evaluation on custom image sets",
+      "Unified preprocessing pipeline normalizing diverse inputs to 28×28 grayscale"
+    ],
+    "problems_solved": [
+      "Inconsistent input formats from canvas drawings vs. uploaded images requiring robust normalization",
+      "Overfitting during training iterations addressed through configurable hyperparameters and monitoring",
+      "Difficulty comparing model performance across MNIST and EMNIST datasets without code duplication",
+      "Lack of visibility into training convergence without integrated logging and visualization"
+    ],
+    "technical_challenges": [
+      "Designing a preprocessing pipeline that handles varying line weights and noise from user-generated canvas input",
+      "Balancing model accuracy across both digit (MNIST) and letter (EMNIST) classification tasks",
+      "Building a configuration system flexible enough for experimentation without breaking the core architecture",
+      "Ensuring the Gradio interface remained responsive while running inference on CPU-bound workloads"
+    ],
+    "learning_outcomes": [
+      "Gained practical experience with PyTorch training loops, checkpointing, and model evaluation",
+      "Learned the critical role of preprocessing in computer vision—benchmark accuracy vs. real-world usability",
+      "Developed skills in MLOps fundamentals: configuration management, logging, and reproducible experiments",
+      "Understood the shift in perspective required when moving from static datasets to interactive user input"
+    ],
+    "future_improvements": [
+      "Deploy the model as a REST API with FastAPI for broader integration",
+      "Add support for full word and sentence recognition using sequence models",
+      "Implement data augmentation pipelines to improve robustness on noisy real-world handwriting",
+      "Containerize the application with Docker for consistent deployment across environments",
+      "Integrate model versioning and experiment tracking with MLflow or Weights & Biases"
+    ]
+  },
+  "linkedin_showcase": "Handwritten text remains one of the more difficult forms of data to digitize due to the sheer variability in human penmanship. Building a system that reliably interprets these inputs requires more than just a model—it requires a robust pipeline that can handle diverse image sources.\n\nI recently developed a deep learning system for handwritten character recognition using PyTorch. The project was designed to handle both digits and letters, leveraging datasets like MNIST and EMNIST. The architecture relies on a modular design, where a core CNN classifier is supported by a dedicated DataModule and a Predictor class that standardizes inputs before inference.\n\nOne of the primary technical challenges was preprocessing. Because the model needs to work with both uploaded images and raw canvas drawings from a Gradio interface, normalizing different input sources to a consistent 28×28 grayscale format was essential. I used OpenCV to handle the transformation logic, ensuring that noise and varying line weights from user drawings did not degrade the model's ability to predict correctly.\n\nTo keep the development workflow efficient, I implemented a YAML-based configuration system. This allowed me to swap between datasets and experiment with training hyperparameters—like learning rate and batch size—without modifying the underlying codebase. Integrating TensorBoard into the training loop also provided much-needed visibility into convergence patterns and helped prevent overfitting during the iteration phase.\n\nBuilding this project underscored the importance of the MLOps side of development. While designing the CNN architecture was rewarding, the true value came from building the infrastructure around it: the automated checkpointing, the CLI for batch testing, and the interactive web interface.\n\nWhat I found most interesting was the shift in perspective required when moving from static dataset evaluation to real-world, user-generated input. The model might perform well on benchmarks, but the preprocessing pipeline is what determines whether the tool is actually usable.\n\nHow are you currently handling image preprocessing in your own computer vision pipelines to account for inconsistent user inputs?\n\n#MachineLearning #PyTorch #ComputerVision #SoftwareEngineering #DeepLearning",
+  "technical_breakdown": "Architecture Overview\n\nThe system follows a layered architecture separating data handling, model training, inference, and presentation:\n\n1. Data Layer (DataModule)\n   - Loads and preprocesses MNIST/EMNIST datasets\n   - Applies normalization transforms (28×28 grayscale, tensor conversion)\n   - Provides train/validation splits with configurable batch sizes\n\n2. Model Layer (CNN Classifier)\n   - Convolutional neural network with configurable depth and filter sizes\n   - Dropout layers for regularization\n   - Softmax output for multi-class classification (digits + letters)\n\n3. Inference Layer (Predictor)\n   - Accepts raw images from file uploads or canvas bitmaps\n   - OpenCV preprocessing: resize, grayscale conversion, noise reduction\n   - Returns top-k predictions with confidence scores\n\n4. Configuration Layer (YAML)\n   - Centralized config for dataset selection, hyperparameters, paths\n   - Enables experiment swapping without code changes\n\n5. Presentation Layer (Gradio + CLI)\n   - Gradio web UI with canvas widget and file upload\n   - CLI for batch evaluation on test directories\n   - TensorBoard integration for training metrics visualization\n\nKey Design Decisions\n\n- Modular separation allows independent testing of each component\n- YAML config promotes reproducibility and experiment tracking\n- Unified preprocessing pipeline ensures consistent inference regardless of input source\n- Checkpointing enables resuming training and model version management",
+  "carousel": [
+    "Slide 1 — The Problem: Handwritten text is notoriously difficult to digitize. Variable penmanship, inconsistent stroke weights, and diverse input sources make character recognition a challenging computer vision problem that goes beyond simple model accuracy.",
+    "Slide 2 — The Solution: Built a modular PyTorch CNN that handles both digits and letters. The system includes a Gradio web interface for real-time inference, a YAML config system for rapid experimentation, and OpenCV preprocessing for input normalization.",
+    "Slide 3 — Technical Highlights: Unified 28×28 grayscale preprocessing pipeline • YAML-based hyperparameter configuration • TensorBoard training monitoring • Automated checkpointing • CLI batch evaluation tool • Support for MNIST and EMNIST datasets",
+    "Slide 4 — Key Learnings: Benchmark accuracy ≠ real-world usability. The preprocessing pipeline—not just the model—determines whether a CV tool works in practice. MLOps infrastructure (logging, config, checkpointing) is as important as architecture design.",
+    "Slide 5 — Call to Action: Check out the full project on GitHub. I'd love to hear how others handle preprocessing for inconsistent user inputs in their computer vision pipelines. Connect with me to discuss ML engineering best practices!"
+  ],
+  "resume_bullets": [
+    "Developed a PyTorch-based handwritten character recognition system achieving high accuracy on MNIST and EMNIST benchmarks with a modular CNN architecture",
+    "Engineered an OpenCV preprocessing pipeline normalizing canvas drawings and uploaded images to consistent 28×28 grayscale format for reliable inference",
+    "Built an interactive Gradio web application enabling real-time character prediction via canvas input and file uploads",
+    "Implemented YAML-based configuration management enabling dataset and hyperparameter swapping without code modifications",
+    "Integrated TensorBoard logging and automated model checkpointing for reproducible ML experiment tracking"
+  ],
+  "portfolio_description": "Handwritten Character Recognition is a full-stack machine learning project that demonstrates end-to-end ML engineering capabilities. Using PyTorch, I built a convolutional neural network capable of classifying handwritten digits and letters from diverse input sources. The project features a modular architecture with separate DataModule, Predictor, and configuration layers, an interactive Gradio web interface for real-time inference, and comprehensive MLOps tooling including TensorBoard integration, automated checkpointing, and a CLI for batch evaluation. The YAML-based configuration system enables rapid experimentation across datasets and hyperparameters, making this project a strong showcase of both deep learning fundamentals and production-minded ML engineering practices.",
+  "hashtags": [
+    "#MachineLearning",
+    "#PyTorch",
+    "#ComputerVision",
+    "#DeepLearning",
+    "#Python",
+    "#MLOps",
+    "#SoftwareEngineering",
+    "#OpenSource"
+  ]
+}

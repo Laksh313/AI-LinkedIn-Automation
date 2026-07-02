@@ -1,6 +1,9 @@
+import json
+import os
+from typing import Any
+
 from google import genai
 from dotenv import load_dotenv
-import os
 
 load_dotenv()
 
@@ -50,6 +53,52 @@ class GeminiClient:
 
         return(response.text)
     
+    def _parse_json_payload(self, response_text: str) -> dict[str, Any]:
+        cleaned = response_text.strip()
+        if cleaned.startswith("```json"):
+            cleaned = cleaned[len("```json"):]
+        if cleaned.startswith("```"):
+            cleaned = cleaned[3:]
+        if cleaned.endswith("```"):
+            cleaned = cleaned[:-3]
+        cleaned = cleaned.strip()
+
+        try:
+            parsed = json.loads(cleaned)
+            return parsed if isinstance(parsed, dict) else {}
+        except json.JSONDecodeError:
+            return {}
+
+    def generate_supporting_content(self, payload: str) -> dict[str, Any]:
+        response = self.client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=f"""
+You are an expert software engineer and technical storyteller.
+
+Using the repository analysis below, return ONLY valid JSON matching:
+
+{{
+  "technical_breakdown": "",
+  "carousel": [],
+  "resume_bullets": [],
+  "portfolio_description": "",
+  "hashtags": []
+}}
+
+Repository analysis:
+{payload}
+"""
+        )
+
+        parsed = self._parse_json_payload(response.text)
+        return {
+            "technical_breakdown": parsed.get("technical_breakdown") if isinstance(parsed.get("technical_breakdown"), str) else "",
+            "carousel": parsed.get("carousel") if isinstance(parsed.get("carousel"), list) else [],
+            "resume_bullets": parsed.get("resume_bullets") if isinstance(parsed.get("resume_bullets"), list) else [],
+            "portfolio_description": parsed.get("portfolio_description") if isinstance(parsed.get("portfolio_description"), str) else "",
+            "hashtags": parsed.get("hashtags") if isinstance(parsed.get("hashtags"), list) else [],
+        }
+
     def generate_post_content(self, payload):
         
         response = self.client.models.generate_content(
