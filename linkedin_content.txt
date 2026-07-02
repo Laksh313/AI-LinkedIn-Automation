@@ -1,0 +1,11 @@
+Handwritten text recognition remains a persistent challenge in automation due to the vast variance in individual penmanship. While humans can easily interpret scribbled notes, teaching a machine to do so consistently requires more than just a basic classifier; it demands a robust pipeline for preprocessing and model inference.
+
+I recently built a deep learning system designed to interpret handwritten digits and characters using the MNIST and EMNIST datasets. The core of the project is a Convolutional Neural Network (CNN) built with PyTorch, supported by a structured training pipeline that includes automated validation, TensorBoard logging, and checkpoint management. To make the model accessible, I developed an interactive web interface using Gradio, allowing users to upload images or draw characters directly onto a canvas for real-time prediction.
+
+A significant technical hurdle was ensuring the system remained robust across different input methods. Whether an image is uploaded or drawn in the browser, the data must be standardized to a 28x28 grayscale format before the model can process it. I solved this by implementing a dedicated preprocessing module using OpenCV. This handles resizing, thresholding, and normalization, ensuring that the model receives consistent inputs regardless of the source's original quality or stroke thickness. This experience highlighted how preprocessing logic is just as critical to inference performance as the underlying model architecture itself.
+
+Building this project reinforced the importance of configuration-driven development. By using PyYAML to manage training parameters, I could iterate quickly on experiments—tuning hyperparameters like dropout and batch size—without hardcoding changes. It also gave me a deeper understanding of how to manage model complexity when transitioning from a simple 10-class digit problem to the much broader 62-class EMNIST character set.
+
+This system has clear applications in automating administrative document processing or digitizing handwritten archival records. As I continue to refine the inference latency, I am curious: how do you approach data normalization when building pipelines meant to handle inconsistent user-generated input?
+
+#DeepLearning #PyTorch #ComputerVision #MachineLearning #SoftwareEngineering

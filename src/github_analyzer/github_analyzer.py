@@ -7,7 +7,7 @@ class RepoAnalyzer:
     def __init__(self):
         self.github = GitHubClient()
 
-    def analyzer(self, repo_url: str):
+    def analyse(self, repo_url: str):
         owner, repo = parse_github_url(repo_url)
 
         metadata = self.github.get_repo(owner, repo)
